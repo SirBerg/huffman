@@ -18,14 +18,15 @@ function sortFreq(freq:{[key:string]:number}):{[key:string]:number}{
 //build tree
 function buildTree(freq:{[key:string]:number}):treeNode{
     let nodes:treeNode[] = []
-    for(let key in freq){
+    for(const key in freq){
         nodes.push({priority: freq[key], char: key, children: []})
     }
     while(nodes.length > 1){
         nodes = nodes.sort((a,b) => a.priority - b.priority)
-        let left = nodes.shift()
-        let right = nodes.shift()
-        let newNode:treeNode = {priority: left.priority + right.priority, char: left.char + right.char, children: [left, right]}
+        const left = nodes.shift()
+        const right = nodes.shift()
+        // @ts-expect-error it does exist
+        const newNode:treeNode = {priority: left.priority + right.priority, char: left.char + right.char, children: [left, right]}
         nodes.push(newNode)
     }
     return nodes[0]
@@ -50,7 +51,7 @@ export function encode(input:string):treeNode{
 }
 
 export function treeToBinary(tree:treeNode):{[key:string]:string}{
-    let binary:{[key:string]:string} = {}
+    const binary:{[key:string]:string} = {}
     function traverse(node:treeNode, path:string){
         if(node.children.length == 0){
             binary[node.char] = path

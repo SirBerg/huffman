@@ -1,6 +1,6 @@
 'use client'
 import './howItWorks.css'
-import {useEffect, useRef, useState, Dispatch, SetStateAction} from 'react';
+import {useEffect, useState, Dispatch, SetStateAction} from 'react';
 import {encode, treeNode, treeToBinary} from "@/huffman/encode";
 
 function Tree({node, hasParentElement}:{node:treeNode, hasParentElement?:boolean}){
@@ -59,16 +59,16 @@ function Character({charBinary, char, treeNode, color}:{charBinary:string, char:
 export default function HowItWorks(){
     const [treeData, setTreeData]:[treeNode, Dispatch<SetStateAction<treeNode>>] = useState(encode('hello world'))
     const [inputString, setInputString]:[string, Dispatch<SetStateAction<string>>] = useState('hello world')
-    const [treeBinaryData, setTreeBinaryData]:[object, Dispatch<SetStateAction<object>>] = useState(treeToBinary(treeData))
+    const [treeBinaryData, setTreeBinaryData]:[{[key:string]:string}, Dispatch<SetStateAction<{[key:string]:string}>>] = useState(treeToBinary(treeData))
     const [randomColor, setRandomColor]:[{[key:string]:string}, Dispatch<SetStateAction<{[key:string]:string}>>] = useState({})
     useEffect(()=>{
-        let chars = Object.keys(treeBinaryData)
-        let colors:{[key:string]:string} = {}
+        const chars = Object.keys(treeBinaryData)
+        const colors:{[key:string]:string} = {}
         chars.map((char)=>{
             colors[char] = Math.floor(Math.random()*16777215).toString(16)
         })
         setRandomColor(colors)
-    }, [treeData])
+    }, [treeData, treeBinaryData])
 
     useEffect(()=>{
         setTreeBinaryData(treeToBinary(treeData))
