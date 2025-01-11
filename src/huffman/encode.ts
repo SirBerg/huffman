@@ -62,5 +62,3 @@ export function treeToBinary(tree:treeNode):{[key:string]:string}{
     traverse(tree, '')
     return binary
 }
-
-console.log(encode('yxy'))

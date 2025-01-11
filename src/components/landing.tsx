@@ -16,9 +16,6 @@ export default function Landing(){
                     </p>
                 </div>
             </div>
-            <div className="footer">
-                Created by <a href="https://github.com/SirBerg" target="_blank">Sir Berg</a> so we don&#39;t get a bad grade (o-o)
-            </div>
         </div>
     );
 }

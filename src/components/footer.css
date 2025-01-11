@@ -1,0 +1,13 @@
+.footerContainer{
+    height: 20vh;
+    width: 100vw;
+    color: gray;
+    display: flex;
+}
+.inner{
+    margin: auto auto;
+    text-align: center;
+}
+.footerLinks{
+    color: lightgray;
+}

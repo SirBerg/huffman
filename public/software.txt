@@ -1,0 +1,13 @@
+Awesome Software we use:
+- Next.js
+- React
+- Node
+- Bun
+- Mermaid.js
+- Git
+- Github
+- Framer Motion
+
+Github Icon provided by: https://simpleicons.org
+
+For a full list of software, check out the package.json file in the root of the repo: https://github.com/SirBerg/huffman

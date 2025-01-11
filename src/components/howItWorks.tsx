@@ -37,7 +37,6 @@ function Tree({node, hasParentElement}:{node:treeNode, hasParentElement?:boolean
 
 function Character({charBinary, char, treeNode, color}:{charBinary:string, char:string, treeNode:treeNode, color:string}){
     //get the correct treeNode out of the tree provided
-    console.log(treeNode)
     charBinary.split('').forEach((bit)=>{
         if(bit == '0' && treeNode.children[0]){
             treeNode = treeNode.children[0]
@@ -108,6 +107,9 @@ export default function HowItWorks(){
                         />
                     })
                 }
+            </div>
+            <div>
+                Für eine bessere Visualisierung gibt es hier <a href="https://cmps-people.ok.ubc.ca/ylucet/DS/Huffman.html" target="_blank" style={{color:'purple'}}>eine Website</a>
             </div>
         </div>
     )

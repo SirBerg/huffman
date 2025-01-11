@@ -27,3 +27,11 @@
     color: white;
     scale: 1.1;
 }
+.githubLink{
+    align-content: center;
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
