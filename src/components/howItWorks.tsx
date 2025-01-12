@@ -81,8 +81,8 @@ export default function HowItWorks(){
             <input type="text" className="exampleInputField"
                onChange={(e) => {
                    if(e.target.value){
-                       setTreeData(encode(e.target.value))
                        setInputString(e.target.value)
+                       setTreeData(encode(e.target.value))
                    }
                    else{
                        setTreeData(encode(" "))
