@@ -23,9 +23,6 @@ const MermaidChart = ({ chart }: { chart: string }) => {
                 },
             });
             try {
-                if(chartRef.current.getAttribute('processed')){
-                    chartRef.current.removeAttribute('processed');
-                }
                 mermaid.contentLoaded();
             } catch (error) {
                 console.error('Failed to render Mermaid chart:', error);
