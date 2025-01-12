@@ -1,3 +1,4 @@
+
 export type treeNode = {
     priority: number,
     char: string,

@@ -2,6 +2,7 @@
 import './howItWorks.css'
 import {useEffect, useState, Dispatch, SetStateAction} from 'react';
 import {encode, treeNode, treeToBinary} from "@/huffman/encode";
+import { Tree2 } from './Tree/huffmanTree';
 
 function Tree({node, hasParentElement}:{node:treeNode, hasParentElement?:boolean}){
     let charToDisplay = node.char.length != 1 ? node.priority : node.char
@@ -80,8 +81,8 @@ export default function HowItWorks(){
             <input type="text" className="exampleInputField"
                onChange={(e) => {
                    if(e.target.value){
-                       setTreeData(encode(e.target.value))
                        setInputString(e.target.value)
+                       setTreeData(encode(e.target.value))
                    }
                    else{
                        setTreeData(encode(" "))
@@ -91,8 +92,8 @@ export default function HowItWorks(){
                value={inputString}
             />
             <div className="treeContainer">
-                <div className="tree">
-                    <Tree node={treeData}/>
+                <div className="tree2">
+                    <Tree2 node={treeData}/>
                 </div>
             </div>
             <div className="DecodedCharacters">
