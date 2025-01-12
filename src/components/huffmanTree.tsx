@@ -1,8 +1,16 @@
 import { treeNode } from "@/huffman/encode";
-import { Background, Edge, Node, ReactFlow } from "@xyflow/react";
+import {
+  Background,
+  Edge,
+  Node,
+  ReactFlow,
+  useEdgesState,
+  useNodesState,
+} from "@xyflow/react";
 import dagre from "@dagrejs/dagre";
+import '@xyflow/react/dist/style.css';
 
-const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
+
 
 const nodeWidth = 150;
 const nodeHeight = 50;
@@ -12,11 +20,12 @@ const getLayoutedElements = (
   edges: Edge[],
   direction = "TB"
 ) => {
+  const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
   const isHorizontal = direction === "LR";
   dagreGraph.setGraph({ rankdir: direction });
 
   nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+    dagreGraph.setNode(node.id, {...node, width: nodeWidth, height: nodeHeight });
   });
 
   edges.forEach((edge) => {
@@ -37,18 +46,6 @@ const getLayoutedElements = (
         x: nodeWithPosition.x - nodeWidth / 2,
         y: nodeWithPosition.y - nodeHeight / 2,
       },
-      style: {
-        width: nodeWidth, // Explicit width
-        height: nodeHeight, // Explicit height
-        background: "#0077ff", // Node background color
-        color: "white", // Text color
-        border: "1px solid #0044cc", // Border style
-        borderRadius: "8px", // Rounded corners
-        display: "flex", // Center text
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "12px", // Smaller font size
-      },
     };
 
     return newNode;
@@ -66,29 +63,25 @@ export function Tree2({ node }: { node: treeNode }) {
         id: `node-${node.char}`,
         data: { label: node.char },
         position: { x: 0, y: 0 },
-        style: { background: "#0077ff", color: "white", border: "1px solid #0044cc" },
+        type: "output"
       });
     } else {
       initialNodes.push({
         id: `node-${node.char}`,
         data: { label: node.priority },
         position: { x: 0, y: 0 },
-        style: { background: "#0077ff", color: "white", border: "1px solid #0044cc" },
       });
       initialEdges.push({
         id: `edge-${node.char}-${node.children[0].char}`,
         source: `node-${node.char}`,
         target: `node-${node.children[0].char}`,
-        style: { stroke: "black", strokeWidth: 2 },
-        type: "default"
       });
       initialEdges.push({
         id: `edge-${node.char}-${node.children[1].char}`,
         source: `node-${node.char}`,
         target: `node-${node.children[1].char}`,
-        style: { stroke: "black", strokeWidth: 2 },
-        type: "default"
       });
+      initialNodes[0].type = "input"
       generateNodesAndEdges(node.children[0]);
       generateNodesAndEdges(node.children[1]);
     }
@@ -100,16 +93,19 @@ export function Tree2({ node }: { node: treeNode }) {
     initialEdges
   );
 
-  console.log("Edges:", layoutedEdges);
+  const [testN, setNodes, onNodesChange] = useNodesState(layoutedNodes as Node[]);
+  const [testE, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
   return (
-    <ReactFlow
-      nodes={layoutedNodes as Node[]}
-      edges={[...layoutedEdges]}
-      fitView
-      fitViewOptions={{ padding: 0.2 }}
-      style={{backgroundColor: "white"}}
-    >
-        <Background style={{pointerEvents: "none"}}/>
-    </ReactFlow>
+      <ReactFlow
+        nodes={testN}
+        edges={testE}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        fitView
+        style={{ backgroundColor: "white" }}
+      >
+        <Background style={{ pointerEvents: "none" }} />
+      </ReactFlow>
   );
 }
+
