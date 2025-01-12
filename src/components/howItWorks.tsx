@@ -63,17 +63,17 @@ export default function HowItWorks(){
     const [treeBinaryData, setTreeBinaryData]:[{[key:string]:string}, Dispatch<SetStateAction<{[key:string]:string}>>] = useState(treeToBinary(treeData))
     const [randomColor, setRandomColor]:[{[key:string]:string}, Dispatch<SetStateAction<{[key:string]:string}>>] = useState({})
     useEffect(()=>{
-        const chars = Object.keys(treeBinaryData)
+        const encodedStuff:treeNode = encode(inputString)
+        setTreeData(encodedStuff)
+        const binary:{[key:string]:string} = treeToBinary(encodedStuff)
+        setTreeBinaryData(binary)
+        const chars = Object.keys(binary)
         const colors:{[key:string]:string} = {}
         chars.map((char)=>{
             colors[char] = Math.floor(Math.random()*16777215).toString(16)
         })
         setRandomColor(colors)
-    }, [treeData, treeBinaryData])
-
-    useEffect(()=>{
-        setTreeBinaryData(treeToBinary(treeData))
-    }, [treeData])
+    }, [inputString])
 
     return (
         <div className="howItWorksContainer">
@@ -82,18 +82,16 @@ export default function HowItWorks(){
                onChange={(e) => {
                    if(e.target.value){
                        setInputString(e.target.value)
-                       setTreeData(encode(e.target.value))
                    }
                    else{
                        setTreeData(encode(" "))
-                       setInputString(" ")
                    }
                }}
                value={inputString}
             />
             <div className="treeContainer">
                 <div className="tree2">
-                    <Tree2 node={treeData}/>
+                    <Tree2 node={treeData} colors={randomColor}/>
                 </div>
             </div>
             <div className="DecodedCharacters">

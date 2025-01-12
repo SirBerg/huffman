@@ -17,7 +17,7 @@ import { getLayoutedElements } from "./getLayoutetElements";
 import { useCallback, useEffect, useState } from "react";
 import { Tooltip } from "react-tooltip";
 
-export function TreeBuilder({ node }: { node: treeNode }) {
+export function TreeBuilder({ node, colors }: { node: treeNode, colors:{[key:string]:string} }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([] as Node[]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([] as Edge[]);
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
@@ -39,6 +39,7 @@ export function TreeBuilder({ node }: { node: treeNode }) {
             height: 40,
             display: "flex",
             justifyContent: "center",
+            backgroundColor: `#${colors[node.char]}`,
           },
         });
       } else {
@@ -137,6 +138,6 @@ export function TreeBuilder({ node }: { node: treeNode }) {
   );
 }
 
-export function Tree2({node}: {node: treeNode}) {
-  return <ReactFlowProvider><TreeBuilder node={node}/></ReactFlowProvider>
+export function Tree2({node, colors}: {node: treeNode, colors:{[key:string]:string}}) {
+  return <ReactFlowProvider><TreeBuilder node={node} colors={colors}/></ReactFlowProvider>
 }
