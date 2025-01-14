@@ -84,7 +84,7 @@ export default function HowItWorks(){
                        setInputString(e.target.value)
                    }
                    else{
-                       setTreeData(encode(" "))
+                       setInputString(" ")
                    }
                }}
                value={inputString}
